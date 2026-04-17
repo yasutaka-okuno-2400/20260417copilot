@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ポモドーロタイマー</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+  <div class="window">
+    <div class="titlebar">
+      <span class="titlebar__title">ポモドーロタイマー</span>
+      <div class="titlebar__controls">
+        <span>&#x2212;</span>
+        <span>&#x25A1;</span>
+        <span>&#x2715;</span>
+      </div>
+    </div>
+
+    <div class="content">
+      <p class="phase-label" id="phaseLabel">作業中</p>
+
+      <div class="ring-container">
+        <svg class="progress-ring" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <circle class="progress-ring__track" cx="100" cy="100" r="80" />
+          <circle class="progress-ring__fill" id="progressRing" cx="100" cy="100" r="80" />
+        </svg>
+        <div class="timer-display" id="timerDisplay">25:00</div>
+      </div>
+
+      <div class="btn-group">
+        <button class="btn btn--primary" id="startBtn">開始</button>
+        <button class="btn btn--secondary" id="resetBtn">リセット</button>
+      </div>
+
+      <div class="stats-card">
+        <p class="stats-card__heading">今日の進捗</p>
+        <div class="stats-card__body">
+          <div class="stats-item">
+            <span class="stats-item__value" id="completedCount">4</span>
+            <span class="stats-item__label">完了</span>
+          </div>
+          <div class="stats-item stats-item--accent">
+            <span class="stats-item__value" id="focusTime">1時間40分</span>
+            <span class="stats-item__label">集中時間</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="/static/js/timer-state.js"></script>
+  <script src="/static/js/timer-ui.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      window.timerSettings = Object.assign({}, defaultSettings);
+      window.timerState = resetTimer(window.timerSettings, Date.now());
+
+      updateDisplay(window.timerState, window.timerSettings);
+      setEventListeners();
+
+      setInterval(function () {
+        if (!window.timerState || !window.timerState.isRunning) {
+          return;
+        }
+
+        window.timerState = transitionPhase(
+          window.timerState,
+          Date.now(),
+          window.timerSettings
+        );
+        updateDisplay(window.timerState, window.timerSettings);
+      }, 100);
+    });
+  </script>
+</body>
+</html>

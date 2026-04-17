@@ -1,0 +1,179 @@
+/* ===== リセット & ベース ===== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #7b6fc7;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ===== ウィンドウ枠 ===== */
+.window {
+  background: #ffffff;
+  border-radius: 16px;
+  width: 340px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+
+.titlebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: #f5f5f7;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.titlebar__title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #333;
+}
+
+.titlebar__controls {
+  display: flex;
+  gap: 10px;
+  font-size: 12px;
+  color: #888;
+  cursor: default;
+}
+
+/* ===== コンテンツエリア ===== */
+.content {
+  padding: 24px 20px 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+/* ===== フェーズラベル ===== */
+.phase-label {
+  font-size: 14px;
+  color: #888;
+  letter-spacing: 0.05em;
+}
+
+/* ===== 円形プログレスリング ===== */
+.ring-container {
+  position: relative;
+  width: 200px;
+  height: 200px;
+}
+
+.progress-ring {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.progress-ring__track {
+  fill: none;
+  stroke: #e8e8f0;
+  stroke-width: 12;
+}
+
+.progress-ring__fill {
+  fill: none;
+  stroke: #6c63c7;
+  stroke-width: 12;
+  stroke-linecap: round;
+  /* 円周 = 2π×80 ≈ 502.65 */
+  stroke-dasharray: 502.65 502.65;
+  /* 開始時は 0% 進捗（全体を空白）→ ダッシュ 0 でトラックのみ表示 */
+  stroke-dashoffset: 502.65;
+  transition: stroke-dashoffset 0.4s linear;
+}
+
+/* ===== タイマー数字 ===== */
+.timer-display {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 42px;
+  font-weight: 700;
+  color: #222;
+  letter-spacing: -1px;
+}
+
+/* ===== ボタン ===== */
+.btn-group {
+  display: flex;
+  gap: 12px;
+}
+
+.btn {
+  padding: 12px 32px;
+  border-radius: 999px;
+  border: none;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.btn:hover {
+  opacity: 0.85;
+}
+
+.btn--primary {
+  background: #6c63c7;
+  color: #fff;
+}
+
+.btn--secondary {
+  background: transparent;
+  color: #6c63c7;
+  border: 2px solid #6c63c7;
+}
+
+/* ===== 統計カード ===== */
+.stats-card {
+  width: 100%;
+  background: #f5f5fa;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.stats-card__heading {
+  font-size: 12px;
+  color: #888;
+  margin-bottom: 10px;
+}
+
+.stats-card__body {
+  display: flex;
+  justify-content: space-around;
+}
+
+.stats-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.stats-item__value {
+  font-size: 22px;
+  font-weight: 700;
+  color: #333;
+}
+
+.stats-item--accent .stats-item__value {
+  color: #6c63c7;
+}
+
+.stats-item__label {
+  font-size: 11px;
+  color: #999;
+}
